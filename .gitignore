@@ -15,8 +15,8 @@ db.sqlite3
 media
 # Ignore Django Migrations in Development if you are working on team
 # Only for Development only
-**/migrations/**
+TaskList/migrations/**
 # !**/migrations
-!**/migrations/__init__.py
+!TaskList/migrations/__init__.py
 #ignore the front-end folder. it is deployed separately
 HoneyDo_fe

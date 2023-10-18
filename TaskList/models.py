@@ -13,19 +13,23 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Comment(models.Model):
     list = models.ForeignKey('List', on_delete=models.RESTRICT, null=True)
     siteUser = models.ForeignKey('SiteUser', on_delete=models.RESTRICT, null=True)
     comments = models.TextField()
     timestamp = models.DateTimeField(default=datetime.now)
+
     def __str__(self):
         return self.comments
+
 
 class List(models.Model):
     name = models.CharField(max_length=200, help_text='Enter a List Title')
     private = models.BooleanField()
     favorite = models.BooleanField()
     notes = models.TextField()
+    list_Type = models.ForeignKey('list', on_delete=models.RESTRICT, null=True)
     siteUser = models.ForeignKey('SiteUser', on_delete=models.RESTRICT, null=True)
     parent = models.ForeignKey('List', on_delete=models.RESTRICT, null=True, blank=True)
     list_image = models.ImageField(upload_to='images/', null=True, blank=True)
@@ -47,7 +51,8 @@ class MembershipTable(models.Model):
     group = models.ForeignKey('Group', on_delete=models.RESTRICT, null=True, related_name="Groups")
 
     def __str__(self):
-        return self.name
+        return self.siteUser
+
 
 class Group(models.Model):
     title = models.CharField(max_length=20)
@@ -64,7 +69,8 @@ class Task(models.Model):
     notes = models.TextField()
     collectedDate = models.DateField()
     list = models.ForeignKey('List', on_delete=models.RESTRICT, null=True)
-#    categories = models.ManyToManyField('Category', related_name='items', blank=True)
+
+    #    categories = models.ManyToManyField('Category', related_name='items', blank=True)
 
     def __str__(self):
         return self.name
@@ -84,4 +90,3 @@ class SiteUser(AbstractUser):
 
     def get_absolute_url(self):
         return reverse('profile', args=[str(self.id)])
-
