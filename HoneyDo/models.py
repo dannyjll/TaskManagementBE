@@ -26,7 +26,6 @@ class List(models.Model):
     private = models.BooleanField()
     favorite = models.BooleanField()
     notes = models.TextField()
-    listType = models.ForeignKey('ListType', on_delete=models.RESTRICT, null=True)
     siteUser = models.ForeignKey('SiteUser', on_delete=models.RESTRICT, null=True)
     parent = models.ForeignKey('List', on_delete=models.RESTRICT, null=True, blank=True)
     list_image = models.ImageField(upload_to='images/', null=True, blank=True)
@@ -44,8 +43,8 @@ class List(models.Model):
 
 
 class MembershipTable(models.Model):
-    siteUser = models.ForeignKey('SiteUser', on_delete=models.RESTRICT, null=True)
-    group = models.ForeignKey('Group', on_delete=models.RESTRICT, null=True)
+    siteUser = models.ForeignKey('SiteUser', on_delete=models.RESTRICT, null=True, related_name="Users")
+    group = models.ForeignKey('Group', on_delete=models.RESTRICT, null=True, related_name="Groups")
 
     def __str__(self):
         return self.name
@@ -73,13 +72,15 @@ class Task(models.Model):
     def get_absolute_url(self):
         return reverse('list_detail', args=[str(self.list.id)])
 
-
 class SiteUser(AbstractUser):
     private = models.BooleanField(default=True)
     first_name = models.CharField(max_length=150)
     description = models.TextField(null=True)
     user_image = models.ImageField(upload_to='images/', null=True, blank=True)
     favorite_lists = models.ManyToManyField(List, related_name='favored_by', blank=True)
+
+    class Meta:
+        db_table = 'auth_user'
 
     def get_absolute_url(self):
         return reverse('profile', args=[str(self.id)])

@@ -1,3 +1,10 @@
 from django.contrib import admin
+from .models import Category, Comment, List, MembershipTable, Group, Task, SiteUser
 
-# Register your models here.
+admin.site.register(Category)
+admin.site.register(Comment)
+admin.site.register(List)
+admin.site.register(MembershipTable)
+admin.site.register(Group)
+admin.site.register(Task)
+admin.site.register(SiteUser)
