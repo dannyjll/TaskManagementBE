@@ -3,7 +3,7 @@ from django.urls import path, include, re_path
 from django.views.static import serve
 from django.conf import settings
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from TaskList import views
+from HoneyDo import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),

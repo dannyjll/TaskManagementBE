@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from .models import Category, Comment, List
+from HoneyDo.models import Category, Comment, List
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator

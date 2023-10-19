@@ -29,7 +29,6 @@ class List(models.Model):
     private = models.BooleanField()
     favorite = models.BooleanField()
     notes = models.TextField()
-    list_Type = models.ForeignKey('list', on_delete=models.RESTRICT, null=True)
     siteUser = models.ForeignKey('SiteUser', on_delete=models.RESTRICT, null=True)
     parent = models.ForeignKey('List', on_delete=models.RESTRICT, null=True, blank=True)
     list_image = models.ImageField(upload_to='images/', null=True, blank=True)

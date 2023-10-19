@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Comment, List, MembershipTable, Group, Task, SiteUser
+from HoneyDo.models import Category, Comment, List, MembershipTable, Group, Task, SiteUser
 
 admin.site.register(Category)
 admin.site.register(Comment)
