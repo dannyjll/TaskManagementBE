@@ -19,3 +19,6 @@ TaskList/migrations/**
 !TaskList/migrations/__init__.py
 #ignore the front-end folder. it is deployed separately
 HoneyDo_fe
+HoneyDo/migrations/**
+# !**/migrations
+HoneyDo/migrations/__init__.py
