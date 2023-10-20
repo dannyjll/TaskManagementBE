@@ -24,8 +24,9 @@ from HoneyDo.views import RegisterView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('HoneyDo-auth', include('rest_framework.urls')),  # allow login/logout for non-admin from local server page
-    path('HoneyDo/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('HoneyDo/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api-auth', include('rest_framework.urls')),  # allow login/logout for non-admin from local server page
+    path('api/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('', include('HoneyDo.urls')),
     path('register/', RegisterView.as_view(), name='auth_register'),
 ]
