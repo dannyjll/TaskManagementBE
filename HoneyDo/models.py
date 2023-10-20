@@ -44,7 +44,8 @@ class Profile(models.Model):
     last_name = models.TextField(max_length=500, null=True, blank=True)
     email = models.TextField(max_length=500, null=True, blank=True)
     bio = models.TextField(max_length=500, null=True, blank=True)
-    image = models.ImageField(upload_to="movie/static/images/profile", default="movie/static/images/profile/default.png", null=True)
+    image = models.ImageField(upload_to="movie/static/images/profile",
+                              default="movie/static/images/profile/default.png", null=True)
     private = models.BooleanField(default=True)
 
     def __str__(self):

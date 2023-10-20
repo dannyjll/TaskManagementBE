@@ -15,8 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from HoneyDo import views
+from HoneyDo.views import RegisterView
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('HoneyDo-auth', include('rest_framework.urls')),  # allow login/logout for non-admin from local server page
+    path('HoneyDo/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('HoneyDo/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('register/', RegisterView.as_view(), name='auth_register'),
 ]
