@@ -10,4 +10,6 @@ urlpatterns = [
     path('api/groups/<int:pk>', views.getGroup),
     path('api/profiles/', views.profile_list),
     path('api/profiles/<int:pk>', views.getProfile),
+    path('api/reminders/', views.reminder_list),
+    path('api/reminders/<int:pk>', views.getReminder),
 ]

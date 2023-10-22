@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from datetime import datetime
+from django.core.validators import MaxValueValidator, MinValueValidator, URLValidator
 from django.contrib.auth.models import User
 
 
@@ -28,6 +29,10 @@ class Task(models.Model):
     notes = models.TextField()
     user = models.ForeignKey(User, on_delete=models.RESTRICT, null=True)
     list = models.ForeignKey('List', on_delete=models.RESTRICT, null=True)
+    difficulty = models.IntegerField(validators=[
+            MaxValueValidator(10),
+            MinValueValidator(1),
+        ], help_text="Enter a difficulty level for the task. The higher the number, the more difficult it should be.", null=True)
 
     class Meta:
         ordering = ['title']
@@ -57,3 +62,14 @@ class Profile(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+
+class Reminder(models.Model):
+
+    description = models.CharField(max_length=100)
+    task = models.OneToOneField('Task', on_delete=models.RESTRICT, null=False)
+    user = models.OneToOneField(User, on_delete=models.RESTRICT, null=False)
+    notification_date = models.DateTimeField()
+
+    def __str__(self):
+        return self.description

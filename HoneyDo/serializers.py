@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Task, List, Group, Profile
+from .models import Task, List, Group, Profile, Reminder
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
@@ -23,10 +23,16 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ('pk', 'user', 'first_name', 'last_name', 'email', 'bio', 'image', 'private')
 
 
+class ReminderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reminder
+        fields = ('pk', 'description', 'task', 'user', 'notification_date')
+
+
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ('pk', 'title', 'description', 'completion_status', 'due_date', 'notes', 'user', 'list')
+        fields = ('pk', 'title', 'description', 'completion_status', 'due_date', 'notes', 'user', 'list', 'difficulty')
 
 
 class RegisterSerializer(serializers.ModelSerializer):

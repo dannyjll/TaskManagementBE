@@ -10,6 +10,43 @@ from .serializers import RegisterSerializer
 
 
 @api_view(['GET', 'POST'])
+def reminder_list(request):
+    if request.method == 'GET':
+        reminders = Reminder.objects.all()
+        serializer = ReminderSerializer(reminders, context={'request': request}, many=True)
+        return Response({'data': serializer.data})
+
+    elif request.method == 'POST':
+        serializer = ReminderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def getReminder(request, pk):
+    """
+    Retrieve, update or delete a reminder instance.
+    """
+    try:
+        reminder = Reminder.objects.get(pk=pk)
+    except Reminder.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ReminderSerializer(reminder, context={'request': request})
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = ReminderSerializer(reminder, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'POST'])
 def profile_list(request):
     if request.method == 'GET':
         profiles = Profile.objects.all()
