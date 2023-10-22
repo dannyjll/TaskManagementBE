@@ -5,10 +5,18 @@ from django.core.validators import MaxValueValidator, MinValueValidator, URLVali
 from django.contrib.auth.models import User
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=200, help_text='Enter a list category.')
+
+    def __str__(self):
+        return self.name
+
+
 class List(models.Model):
     title = models.CharField(max_length=200, help_text='Enter a list title')
     description = models.CharField(max_length=200, help_text='Enter a list description')
     notes = models.TextField()
+    category = models.ManyToManyField(Category, help_text='Select a category for this list')
     list_image = models.ImageField(upload_to='images/', null=True, blank=True)
 
     class Meta:
@@ -65,7 +73,6 @@ class Profile(models.Model):
 
 
 class Reminder(models.Model):
-
     description = models.CharField(max_length=100)
     task = models.OneToOneField('Task', on_delete=models.RESTRICT, null=False)
     user = models.OneToOneField(User, on_delete=models.RESTRICT, null=False)

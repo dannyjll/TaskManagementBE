@@ -29,4 +29,5 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('', include('HoneyDo.urls')),
     path('register/', RegisterView.as_view(), name='auth_register'),
+    path('api/getUser/', views.getUser),
 ]

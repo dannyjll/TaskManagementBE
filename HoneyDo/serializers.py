@@ -1,14 +1,20 @@
 from rest_framework import serializers
-from .models import Task, List, Group, Profile, Reminder
+from .models import Task, List, Group, Profile, Reminder, Category
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = 'name'
+
+
 class ListSerializer(serializers.ModelSerializer):
     class Meta:
         model = List
-        fields = ('pk', 'title', 'description', 'notes', 'list_image')
+        fields = ('pk', 'title', 'description', 'notes', 'list_image', 'category')
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -70,3 +76,9 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('pk', 'username', 'is_superuser', 'first_name', 'last_name', 'email')

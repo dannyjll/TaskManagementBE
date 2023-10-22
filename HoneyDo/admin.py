@@ -1,5 +1,5 @@
 from django.contrib import admin
-from HoneyDo.models import (List, Group, Task, Profile, Reminder)
+from HoneyDo.models import (List, Group, Task, Profile, Reminder, Category)
 
 
 admin.site.register(List)
@@ -8,6 +8,7 @@ admin.site.register(Group)
 admin.site.register(Task)
 admin.site.register(Profile)
 admin.site.register(Reminder)
+admin.site.register(Category)
 #admin.site.register(SiteUser)
 #admin.site.register(Category)
 #admin.site.register(Comment)

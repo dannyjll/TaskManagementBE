@@ -10,6 +10,43 @@ from .serializers import RegisterSerializer
 
 
 @api_view(['GET', 'POST'])
+def category_list(request):
+    if request.method == 'GET':
+        categories = Category.objects.all()
+        serializer = CategorySerializer(categories, context={'request': request}, many=True)
+        return Response({'data': serializer.data})
+
+    elif request.method == 'POST':
+        serializer = CategorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def getCategory(request, pk):
+    """
+    Retrieve, update or delete a category instance.
+    """
+    try:
+        category = Category.objects.get(pk=pk)
+    except Category.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = CategorySerializer(category, context={'request': request})
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = CategorySerializer(category, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'POST'])
 def reminder_list(request):
     if request.method == 'GET':
         reminders = Reminder.objects.all()
@@ -207,6 +244,32 @@ def getTask(request, pk):
     elif request.method == 'DELETE':
         task.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def my_task_list(request):
+    if request.method == 'GET':
+        tasks = Task.objects.filter(user=request.user)
+        serializer = TaskSerializer(tasks, context={'request': request}, many=True)
+        return Response({'data': serializer.data})
+
+    elif request.method == 'POST':
+        serializer = TaskSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def getUser(request):
+    try:
+        user = User.objects.get(pk=request.user.id)
+    except User.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = UserSerializer(user, context={'request': request})
+        return Response(serializer.data)
 
 
 class RegisterView(generics.CreateAPIView):
