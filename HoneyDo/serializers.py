@@ -8,13 +8,13 @@ from django.contrib.auth.password_validation import validate_password
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = 'name'
+        fields = ('pk', 'name', 'list_set')
 
 
 class ListSerializer(serializers.ModelSerializer):
     class Meta:
         model = List
-        fields = ('pk', 'title', 'description', 'notes', 'list_image', 'category')
+        fields = ('pk', 'title', 'description', 'notes', 'list_image', 'category', 'task_set')
 
 
 class GroupSerializer(serializers.ModelSerializer):
