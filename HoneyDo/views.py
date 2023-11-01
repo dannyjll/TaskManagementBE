@@ -262,7 +262,7 @@ def my_task_list(request):
 @api_view(['GET', 'POST'])
 def my_profile(request):
     if request.method == 'GET':
-        profile = Task.objects.filter(user=request.user)
+        profile = Profile.objects.filter(user=request.user)
         serializer = ProfileSerializer(profile, context={'request': request}, many=True)
         return Response({'data': serializer.data})
 
