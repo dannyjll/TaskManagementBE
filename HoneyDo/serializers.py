@@ -82,3 +82,27 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('pk', 'username', 'is_superuser', 'first_name', 'last_name', 'email')
+
+
+class Guest1Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('pk', 'username', 'is_superuser', 'first_name', 'last_name', 'email')
+
+
+class Guest2Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('pk', 'username', 'is_superuser', 'first_name', 'last_name', 'email')
+
+
+class Guest3Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('pk', 'username', 'is_superuser', 'first_name', 'last_name', 'email')
+
+
+class Guest4Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('pk', 'username', 'is_superuser', 'first_name', 'last_name', 'email')
