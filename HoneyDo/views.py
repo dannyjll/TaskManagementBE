@@ -4,7 +4,10 @@ from rest_framework.decorators import api_view
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect
+from .forms import ContactForm
 from django.contrib.auth.models import User
 from .serializers import RegisterSerializer
 
@@ -341,3 +344,26 @@ def getGuest4(request):
     if request.method == 'GET':
         serializer = UserSerializer(user, context={'request': request})
         return Response(serializer.data)
+
+
+def contactView(request):
+    if request.method == "GET":
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data["subject"]
+            from_email = form.cleaned_data["from_email"]
+            message = form.cleaned_data['message']
+            try:
+                send_mail(subject, message, from_email, ["admin@honeydo.com"])
+            except BadHeaderError:
+                return HttpResponse("Invalid header found.")
+            return redirect("success")
+    return render(request, "email.html", {"form": form})
+
+
+def successView(request):
+    return HttpResponse("Thank you for contacting HoneyDo!! Due to an unusual level of activity, responses are "
+                        "delayed. We anticipate responding to your message within three business days. In the "
+                        "meantime, please feel free to explore the features that HoneyDo has to offer :D")

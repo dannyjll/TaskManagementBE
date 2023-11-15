@@ -1,5 +1,7 @@
 from django.urls import path
 from HoneyDo import views
+from .views import contactView, successView
+
 urlpatterns = [
     path('', views.task_list),
     path('api/tasks/', views.task_list),
@@ -16,4 +18,6 @@ urlpatterns = [
     path('api/reminders/<int:pk>', views.getReminder),
     path('api/categories/', views.category_list),
     path('api/categories/<int:pk>', views.getCategory),
+    path("contact/", contactView, name="contact"),
+    path("success/", successView, name="success"),
 ]
