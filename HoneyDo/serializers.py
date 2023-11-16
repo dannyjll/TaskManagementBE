@@ -26,7 +26,7 @@ class GroupSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ('pk', 'user', 'first_name', 'last_name', 'email', 'bio', 'private')
+        fields = ('pk', 'user', 'first_name', 'last_name', 'email', 'bio', 'image', 'private')
 
 
 class ReminderSerializer(serializers.ModelSerializer):
