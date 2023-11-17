@@ -33,6 +33,7 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='auth_register'),
     path('api/getUser/', views.getUser),
     path('api/getAllUsers/', views.getAllUsers),
+    path('api/getUserFromPK/<int:pk>', views.getUserFromPK),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}), #serve media files when deployed
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}), #serve static files when deployed
 ]

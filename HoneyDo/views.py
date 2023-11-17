@@ -292,7 +292,7 @@ def getUser(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
-def getAllUsers(request):
+def getAllUsers(request, pk):
     """
     Retreive all users
     """
@@ -303,6 +303,20 @@ def getAllUsers(request):
 
     if request.method == 'GET':
         serializer = UserSerializer(users, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+def getUserFromPK(request, pk):
+    """
+    Retrieve a user from their PK.
+    """
+    try:
+        user = User.objects.get(pk=pk)
+    except User.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = UserSerializer(user, context={'request': request})
         return Response(serializer.data)
 
 
