@@ -291,6 +291,20 @@ def getUser(request):
         serializer = UserSerializer(user, context={'request': request})
         return Response(serializer.data)
 
+@api_view(['GET'])
+def getAllUsers(request):
+    """
+    Retreive all users
+    """
+    try:
+        users = User.objects.all()
+    except User.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = UserSerializer(users, context={'request': request}, many=True)
+        return Response(serializer.data)
+
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
