@@ -5,7 +5,7 @@ from .views import contactView, successView
 urlpatterns = [
     path('', views.task_list),
     path('api/tasks/', views.task_list),
-    path('api/mytasks/', views.my_task_list),
+    path('api/mytask/', views.my_task_list),
     path('api/tasks/<int:pk>', views.getTask),
     path('api/lists/', views.list_list),
     path('api/lists/<int:pk>', views.getList),
