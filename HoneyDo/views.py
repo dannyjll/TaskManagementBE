@@ -292,7 +292,7 @@ def getUser(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
-def getAllUsers(request, pk):
+def getAllUsers(request):
     """
     Retreive all users
     """
