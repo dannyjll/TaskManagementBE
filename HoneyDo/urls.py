@@ -9,6 +9,8 @@ urlpatterns = [
     path('api/tasks/<int:pk>', views.getTask),
     path('api/lists/', views.list_list),
     path('api/lists/<int:pk>', views.getList),
+    path('api/mylists/', views.my_list_list),
+    path('api/mygroups/', views.my_group_list),
     path('api/groups/', views.group_list),
     path('api/groups/<int:pk>', views.getGroup),
     path('api/profiles/', views.profile_list),

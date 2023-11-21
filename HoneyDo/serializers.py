@@ -14,7 +14,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class ListSerializer(serializers.ModelSerializer):
     class Meta:
         model = List
-        fields = ('pk', 'title', 'description', 'notes', 'list_image')
+        fields = ('pk', 'title', 'description', 'notes', 'list_image', 'group_set')
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -81,7 +81,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('pk', 'username', 'is_superuser', 'first_name', 'last_name', 'email')
+        fields = ('pk', 'username', 'is_superuser', 'first_name', 'last_name', 'email', 'group_set')
 
 
 class Guest1Serializer(serializers.ModelSerializer):

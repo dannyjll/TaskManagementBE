@@ -142,6 +142,15 @@ def group_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET'])
+def my_group_list(request):
+    user = request.user
+    if request.method == 'GET':
+        groups = user.group_set.all()
+        serializer = GroupSerializer(groups, context={'request': request}, many=True)
+        return Response({'data': serializer.data})
+
+
 @api_view(['GET', 'PUT', 'DELETE'])
 def getGroup(request, pk):
     """
@@ -181,6 +190,15 @@ def list_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def my_list_list(request):
+    user = request.user
+    if request.method == 'GET':
+        lists = List.objects.filter(group__in=user.group_set.all()).distinct()
+        serializer = ListSerializer(lists, context={'request': request}, many=True)
+        return Response({'data': serializer.data})
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -291,6 +309,7 @@ def getUser(request):
         serializer = UserSerializer(user, context={'request': request})
         return Response(serializer.data)
 
+
 @api_view(['GET'])
 def getAllUsers(request):
     """
@@ -304,6 +323,7 @@ def getAllUsers(request):
     if request.method == 'GET':
         serializer = UserSerializer(users, context={'request': request}, many=True)
         return Response(serializer.data)
+
 
 @api_view(['GET'])
 def getUserFromPK(request, pk):
