@@ -7,6 +7,7 @@ urlpatterns = [
     path('api/tasks/', views.task_list),
     path('api/mytasks/', views.my_task_list),
     path('api/tasks/<int:pk>', views.getTask),
+    path('api/gettasksfromlist/<int:pk>', views.getTaskFromList),
     path('api/lists/', views.list_list),
     path('api/lists/<int:pk>', views.getList),
     path('api/mylists/', views.my_list_list),

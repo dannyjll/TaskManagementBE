@@ -268,6 +268,19 @@ def getTask(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@api_view(['GET'])
+def getTaskFromList(request, pk):
+    """
+    Retrieve, update or delete a task instance.
+    """
+    list = List.objects.get(pk=pk)
+
+    if request.method == 'GET':
+        tasks = Task.objects.filter(pk__in=list.task_set.all())
+        serializer = TaskSerializer(tasks, context={'request': request}, many=True)
+        return Response({'data': serializer.data})
+
+
 @api_view(['GET', 'POST'])
 def my_task_list(request):
     if request.method == 'GET':

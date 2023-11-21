@@ -12,6 +12,7 @@ venv
 __pycache__/
 local_settings.py
 db.sqlite3
+media/images/*
 media/images/profile/*
 !media/images/profile/default.png
 static
