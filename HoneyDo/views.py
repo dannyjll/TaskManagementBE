@@ -5,7 +5,7 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
 from .forms import ContactForm
 from django.contrib.auth.models import User
@@ -176,6 +176,31 @@ def getGroup(request, pk):
         group.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+@api_view(['GET'])
+def getListsFromGroup(request, pk):
+    try:
+        group = Group.objects.get(pk=pk)
+        if request.method == 'GET':
+            lists = List.objects.filter(pk__in=group.lists.all())
+            serializer = ListSerializer(lists, context={'request': request}, many=True)
+            return Response({'data': serializer.data})
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return Response({"error": "Internal Server Error"}, status=500)
+
+
+@api_view(['GET'])
+def getUsersFromGroup(request, pk):
+    try:
+        group = Group.objects.get(pk=pk)
+        if request.method == 'GET':
+            users = User.objects.filter(pk__in=group.users.all())
+            serializer = UserSerializer(users, context={'request': request}, many=True)
+            return Response({'data': serializer.data})
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return Response({"error": "Internal Server Error"}, status=500)
 
 @api_view(['GET', 'POST'])
 def list_list(request):

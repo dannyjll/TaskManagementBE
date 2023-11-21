@@ -14,6 +14,7 @@ urlpatterns = [
     path('api/mygroups/', views.my_group_list),
     path('api/groups/', views.group_list),
     path('api/groups/<int:pk>', views.getGroup),
+    path('api/getlistsfromgroup/<int:pk>', views.getListsFromGroup),
     path('api/profiles/', views.profile_list),
     path('api/myprofile/', views.my_profile),
     path('api/profiles/<int:pk>', views.getProfile),

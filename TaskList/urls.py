@@ -31,9 +31,10 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('', include('HoneyDo.urls')),
     path('register/', RegisterView.as_view(), name='auth_register'),
-    path('api/getUser/', views.getUser),
-    path('api/getAllUsers/', views.getAllUsers),
-    path('api/getUserFromPK/<int:pk>', views.getUserFromPK),
+    path('api/getuser/', views.getUser),
+    path('api/getallusers/', views.getAllUsers),
+    path('api/getuserfrompk/<int:pk>', views.getUserFromPK),
+    path('api/getuserfromgroup/<int:pk>', views.getUsersFromGroup),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}), #serve media files when deployed
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}), #serve static files when deployed
 ]
