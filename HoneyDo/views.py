@@ -127,6 +127,18 @@ def getProfile(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@api_view(['GET'])
+def getProfileFromUser(request, pk):
+    try:
+        user = User.objects.get(pk=pk)
+        if request.method == 'GET':
+            profile = Profile.objects.get(user=user.pk)
+            serializer = ProfileSerializer(profile, context={'request': request}, many=False)
+            return Response({'data': serializer.data})
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return Response({"error": "Internal Server Error"}, status=500)
+
 @api_view(['GET', 'POST'])
 def group_list(request):
     if request.method == 'GET':

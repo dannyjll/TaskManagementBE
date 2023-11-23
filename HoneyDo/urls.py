@@ -17,6 +17,7 @@ urlpatterns = [
     path('api/getlistsfromgroup/<int:pk>', views.getListsFromGroup),
     path('api/profiles/', views.profile_list),
     path('api/myprofile/', views.my_profile),
+    path('api/getprofilefromuser/<int:pk>', views.getProfileFromUser),
     path('api/profiles/<int:pk>', views.getProfile),
     path('api/reminders/', views.reminder_list),
     path('api/reminders/<int:pk>', views.getReminder),
