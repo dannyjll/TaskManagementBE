@@ -279,6 +279,19 @@ def task_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET', 'POST'])
+def my_tasks(request):
+    if request.method == 'GET':
+        task = Task.objects.filter(user=request.user)
+        serializer = TaskSerializer(task, context={'request': request}, many=True)
+        return Response({'data': serializer.data})
+
+    elif request.method == 'POST':
+        serializer = TaskSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 @api_view(['GET', 'PUT', 'DELETE'])
 def getTask(request, pk):
     """
