@@ -16,7 +16,7 @@ class List(models.Model):
     title = models.CharField(max_length=200, help_text='Enter a list title')
     description = models.CharField(max_length=200, help_text='Enter a list description')
     notes = models.TextField()
-    category = models.ManyToManyField(Category, help_text='Select a category for this list')
+    # category = models.ManyToManyField(Category, help_text='Select a category for this list')
     list_image = models.ImageField(upload_to='images/', null=True, blank=True)
 
     class Meta:

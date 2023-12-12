@@ -14,7 +14,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class ListSerializer(serializers.ModelSerializer):
     class Meta:
         model = List
-        fields = ('pk', 'title', 'description', 'notes', 'list_image', 'group_set', 'category', 'task_set')
+        fields = ('pk', 'title', 'description', 'notes', 'list_image', 'group_set', 'task_set')
 
 
 class GroupSerializer(serializers.ModelSerializer):
