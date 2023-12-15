@@ -52,7 +52,7 @@ class Task(models.Model):
 class Group(models.Model):
     title = models.CharField(max_length=20)
     users = models.ManyToManyField(User)
-    lists = models.ManyToManyField('List')
+    lists = models.ManyToManyField('List', blank=True)
 
     def __str__(self):
         return self.title
@@ -60,9 +60,9 @@ class Group(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, unique=True)
-    first_name = models.TextField(max_length=500, null=True, blank=True)
-    last_name = models.TextField(max_length=500, null=True, blank=True)
-    email = models.TextField(max_length=500, null=True, blank=True)
+    # first_name = models.TextField(max_length=500, null=True, blank=True)
+    # last_name = models.TextField(max_length=500, null=True, blank=True)
+    # email = models.TextField(max_length=500, null=True, blank=True)
     bio = models.TextField(max_length=500, null=True, blank=True)
     image = models.ImageField(upload_to="images/profile",
                               default="images/profile/default.png", null=True)
