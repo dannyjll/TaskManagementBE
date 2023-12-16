@@ -362,7 +362,7 @@ def my_task_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'PUT'])
 def my_profile(request):
     if request.method == 'GET':
         profile = Profile.objects.filter(user=request.user)
