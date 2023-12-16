@@ -13,9 +13,9 @@ class Category(models.Model):
 
 
 class List(models.Model):
-    title = models.CharField(max_length=200, help_text='Enter a list title')
-    description = models.CharField(max_length=200, help_text='Enter a list description')
-    notes = models.TextField()
+    title = models.CharField(max_length=100, help_text='Enter a list title')
+    description = models.CharField(max_length=1000, help_text='Enter a list description')
+    notes = models.CharField(max_length=1000, help_text='Enter notes')
     # category = models.ManyToManyField(Category, help_text='Select a category for this list')
     list_image = models.ImageField(upload_to='images/', null=True, blank=True)
 
@@ -31,10 +31,10 @@ class List(models.Model):
 
 class Task(models.Model):
     title = models.CharField(max_length=200, help_text='Enter a name for this task')
-    description = models.CharField(max_length=500, help_text='Enter a description for this task')
+    description = models.CharField(max_length=1000, help_text='Enter a description for this task')
     completion_status = models.BooleanField(default=False)
     due_date = models.DateTimeField()
-    notes = models.TextField()
+    notes = models.CharField(max_length=1000, help_text='Enter a list description')
     user = models.ForeignKey(User, on_delete=models.RESTRICT, null=True)
     list = models.ForeignKey('List', on_delete=models.RESTRICT, null=True)
     difficulty = models.IntegerField(validators=[
@@ -50,7 +50,7 @@ class Task(models.Model):
 
 
 class Group(models.Model):
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=200)
     users = models.ManyToManyField(User)
     lists = models.ManyToManyField('List', blank=True)
 
@@ -73,7 +73,7 @@ class Profile(models.Model):
 
 
 class Reminder(models.Model):
-    description = models.CharField(max_length=100)
+    description = models.CharField(max_length=1000)
     task = models.OneToOneField('Task', on_delete=models.RESTRICT, null=False)
     user = models.OneToOneField(User, on_delete=models.RESTRICT, null=False)
     notification_date = models.DateTimeField()

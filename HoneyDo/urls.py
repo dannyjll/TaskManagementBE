@@ -11,6 +11,7 @@ urlpatterns = [
     path('api/gettasksfromlist/<int:pk>', views.getTaskFromList),
     path('api/lists/', views.list_list),
     path('api/lists/<int:pk>', views.getList),
+    path('api/getusersfromlist/<int:pk>', views.getUsersFromList),
     path('api/mylists/', views.my_list_list),
     path('api/mygroups/', views.my_group_list),
     path('api/groups/', views.group_list),

@@ -330,6 +330,22 @@ def getTaskFromList(request, pk):
         serializer = TaskSerializer(tasks, context={'request': request}, many=True)
         return Response({'data': serializer.data})
 
+@api_view(['GET'])
+def getUsersFromList(request, pk):
+    """
+    Retrieve users from boards
+    """
+    list_instance = List.objects.get(pk=pk)
+    groups = Group.objects.filter(lists=list_instance)
+    print(f"Groups: {groups.query}")
+
+    # Retrieve users belonging to the groups
+    group_users = User.objects.filter(groups__in=groups).distinct()
+    print(f"Users: {group_users.query}")
+
+    if request.method == 'GET':
+        serializer = UserSerializer(group_users, context={'request': request}, many=True)
+        return Response({'data': serializer.data})
 
 @api_view(['GET', 'POST'])
 def my_task_list(request):

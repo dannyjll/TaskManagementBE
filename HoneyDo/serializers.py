@@ -58,7 +58,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             'first_name': {'required': True},
             'last_name': {'required': True},
             'password': {'write_only': True, 'min_length': 6},
-            'password2': {'write_only': True, 'min_length': 6}
+            'password2': {'write_only': True, 'min_length': 6},
         }
 
     def validate(self, attrs):
