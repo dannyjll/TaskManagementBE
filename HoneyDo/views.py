@@ -378,7 +378,7 @@ def my_task_list(request):
 def my_profile(request):
     if request.method == 'GET':
         profile = Profile.objects.filter(user=request.user)
-        serializer = ProfileSerializer(profile, context={'request': request}, many=False)
+        serializer = ProfileSerializer(profile, context={'request': request}, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
