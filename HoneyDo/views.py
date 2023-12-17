@@ -377,8 +377,8 @@ def my_task_list(request):
 @api_view(['GET', 'POST', 'PUT'])
 def my_profile(request):
     if request.method == 'GET':
-        profile = Profile.objects.filter(user=request.user)
-        serializer = ProfileSerializer(profile, context={'request': request}, many=True)
+        profile = Profile.objects.get(user=request.user)
+        serializer = ProfileSerializer(profile, context={'request': request})
         return Response(serializer.data)
 
     elif request.method == 'POST':
