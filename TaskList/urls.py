@@ -34,6 +34,7 @@ urlpatterns = [
     path('api/getuser/', views.getUser),
     path('api/getallusers/', views.getAllUsers),
     path('api/getuserfrompk/<int:pk>', views.getUserFromPK),
+    path('api/getuserfromprofilepk/<int:pk>', views.getUserFromProfilePK),
     path('api/getusersfromgroup/<int:pk>', views.getUsersFromGroup),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}), #serve media files when deployed
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}), #serve static files when deployed

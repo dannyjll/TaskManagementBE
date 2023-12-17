@@ -214,6 +214,18 @@ def getUsersFromGroup(request, pk):
         print(f"Error: {str(e)}")
         return Response({"error": "Internal Server Error"}, status=500)
 
+@api_view(['GET'])
+def getUserFromProfilePK(request, pk):
+    try:
+        profile = Profile.objects.get(pk=pk)
+        if request.method == 'GET':
+            user = profile.user
+            serializer = UserSerializer(user, context={'request': request})
+            return Response({'data': serializer.data})
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return Response({"error": "Internal Server Error"}, status=500)
+
 @api_view(['GET', 'POST'])
 def list_list(request):
     if request.method == 'GET':
