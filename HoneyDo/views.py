@@ -220,8 +220,8 @@ def getUserFromProfilePK(request, pk):
         profile = Profile.objects.get(pk=pk)
         if request.method == 'GET':
             user = profile.user
-            serializer = UserSerializer(user, context={'request': request})
-            return Response({'data': serializer.data})
+            serializer = UserSerializer(user, context={'request': request}, many=False)
+            return Response(serializer.data)
     except Exception as e:
         print(f"Error: {str(e)}")
         return Response({"error": "Internal Server Error"}, status=500)
